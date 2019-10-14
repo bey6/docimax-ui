@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import Dui from '../packages/index';
+import Dui from './components/index';
 
 Vue.config.productionTip = false
 Vue.use(Dui)

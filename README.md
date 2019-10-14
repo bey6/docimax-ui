@@ -1,29 +1,38 @@
 # @docimax/ui
 
-## Project setup
-```
-npm install
+一些需要自己实现的公共基础组件库
+
+## 安装
+
+```bash
+npm i @docimax/ui
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+## 引入
+
+```js
+import dui from '@docimax/ui';
+
+Vue.use(dui);
 ```
 
-### Compiles and minifies for production
-```
-npm run build
+## 测试
+
+src/views/Home.vue
+
+```js
+<template>
+  <div class="home">
+    <d-wellcome></d-wellcome>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'home',
+}
+</script>
 ```
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+一切顺利的话应该看到此页面
+![wellcome.png](./assets/wellcome.png)
