@@ -1,6 +1,5 @@
-.DS_Store
 node_modules
-/dist
+lib/
 
 # local env files
 .env.local
@@ -19,3 +18,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+lib/dui.umd.min.js.map
+lib/dui.common.js
