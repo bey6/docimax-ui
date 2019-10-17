@@ -1,9 +1,11 @@
 import pkg from '../../package.json';
 
+import Select from './select';
 import Wellcome from './wellcome';
 
 const components = [
-  Wellcome
+  Wellcome,
+  Select
 ]
 
 const install = function (Vue, options) {
