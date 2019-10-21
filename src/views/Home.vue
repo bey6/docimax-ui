@@ -1,41 +1,58 @@
 <template>
   <div class="home">
-    <d-wellcome></d-wellcome>
-    <dui-select
-      style="width: 100%"
-      id="hduiSelect"
-      :items="items"
-      v-model="selected"
-      @change="handleChange"
-      @onSelectAllChange="handleSelectAllChange"
-    ></dui-select>
-    <div class="panel">
-      <input
-        type="text"
-        name=""
-        id=""
-      >
-    </div>
+    <label for="cities"
+           class="xxx">
+      <span class="label-span">city:</span>
+      <div class="label-input">
+        <dui-select id="cities"
+                    style="height: 40px;font-size:16px"
+                    :items="items"
+                    v-model="selected"
+                    mode="multiple"
+                    @change="handleChange"
+                    @onSelectAllChange="handleSelectAllChange"></dui-select>
+      </div>
+    </label>
   </div>
 </template>
 
 <script>
 export default {
-  name: "home",
+  name: 'home',
   data: () => ({
     items: [
-      { id: 1, label: "北京", value: "bj" },
-      { id: 2, label: "上海", value: "sh" },
-      { id: 3, label: "广州", value: "gz" },
-      { id: 4, label: "深圳", value: "sz" }
+      { label: '北京', value: 'bj' },
+      { label: '上海', value: 'sh' },
+      { label: '广州', value: 'gz' },
+      { label: '深圳', value: 'sz' },
+      { label: '北京', value: 'bj' },
+      { label: '上海', value: 'sh' },
+      { label: '广州', value: 'gz' },
+      { label: '深圳', value: 'sz' },
+      { label: '北京', value: 'bj' },
+      { label: '上海', value: 'sh' },
+      { label: '广州', value: 'gz' },
+      { label: '深圳', value: 'sz' },
+      { label: '北京', value: 'bj' },
+      { label: '上海', value: 'sh' },
+      { label: '广州', value: 'gz' },
+      { label: '深圳', value: 'sz' },
+      { label: '北京', value: 'bj' },
+      { label: '上海', value: 'sh' },
+      { label: '广州', value: 'gz' },
+      { label: '深圳', value: 'sz' },
+      { label: '北京', value: 'bj' },
+      { label: '上海', value: 'sh' },
+      { label: '广州', value: 'gz' },
+      { label: '深圳', value: 'sz' }
     ],
-    selected: ""
+    selected: []
   }),
   methods: {
-    handleChange(v) {
+    handleChange (v) {
       this.selected = v;
     },
-    handleSelectAllChange({ checked, value }) {
+    handleSelectAllChange ({ checked, value }) {
       this.selected = value;
     }
   }
@@ -43,9 +60,25 @@ export default {
 </script>
 
 <style>
-.panel {
-  background-color: #ddd;
-  height: 100px;
-  width: 100%;
+.xxx {
+  display: inline-block;
+  width: 512px;
+}
+
+.label-span {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 80px;
+}
+
+.label-input {
+  display: inline-block;
+  box-sizing: border-box;
+  width: calc(100% - 80px);
+}
+
+select,
+input {
+  font-size: 1em;
 }
 </style>
