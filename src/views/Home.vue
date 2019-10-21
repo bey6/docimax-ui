@@ -2,7 +2,7 @@
   <div class="home">
     <label for="cities"
            class="xxx">
-      <span class="label-span">city:</span>
+      <span class="label-span">城市：</span>
       <div class="label-input">
         <dui-select id="cities"
                     style="height: 40px;font-size:16px"
@@ -21,26 +21,6 @@ export default {
   name: 'home',
   data: () => ({
     items: [
-      { label: '北京', value: 'bj' },
-      { label: '上海', value: 'sh' },
-      { label: '广州', value: 'gz' },
-      { label: '深圳', value: 'sz' },
-      { label: '北京', value: 'bj' },
-      { label: '上海', value: 'sh' },
-      { label: '广州', value: 'gz' },
-      { label: '深圳', value: 'sz' },
-      { label: '北京', value: 'bj' },
-      { label: '上海', value: 'sh' },
-      { label: '广州', value: 'gz' },
-      { label: '深圳', value: 'sz' },
-      { label: '北京', value: 'bj' },
-      { label: '上海', value: 'sh' },
-      { label: '广州', value: 'gz' },
-      { label: '深圳', value: 'sz' },
-      { label: '北京', value: 'bj' },
-      { label: '上海', value: 'sh' },
-      { label: '广州', value: 'gz' },
-      { label: '深圳', value: 'sz' },
       { label: '北京', value: 'bj' },
       { label: '上海', value: 'sh' },
       { label: '广州', value: 'gz' },
