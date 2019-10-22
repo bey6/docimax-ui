@@ -61,7 +61,8 @@ export default {
 |items|Array|默认为 `[]`，所有可选项的集合，类型应该是 `{ label: '', value: '' }` 这种结构的|
 |mode|String|`single` or `multiple` 单选还是多选|
 |content|String|`label` or `value` 显示值为 label 还是 value|
-
+|label|string|默认值为 `label`，指定使用数据集中的哪个字段作为文案|
+|code|string|默认值为 `code`，指定使用数据集中的哪个字段作为编码|
 **Event**
 | name | params | description|
 |-|-|-|
