@@ -32,9 +32,7 @@ export default {
   }),
   methods: {
     handleChange (v) {
-      console.log(v);
       this.selected = v;
-      console.log(this.selected);
     },
     handleSelectAllChange ({ checked, value }) {
       this.selected = value;

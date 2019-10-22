@@ -128,9 +128,7 @@ export default {
       } else {
         // 多选
         // nothing to say
-        console.log(tmp);
         let idx = tmp.findIndex(t => t[this.code] == v[this.code]);
-        console.log(idx);
         if (idx !== -1) {
           // 数组里有这个项
           if (!e.target.checked) {
@@ -139,7 +137,6 @@ export default {
         } else {
           // 数组里面没有本次选择的项
           if (e.target.checked) {
-            console.log(v);
             tmp.push(v); // push into
           }
         }
