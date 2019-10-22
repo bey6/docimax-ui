@@ -9,6 +9,8 @@
                     :items="items"
                     v-model="selected"
                     mode="multiple"
+                    label="content"
+                    content="content"
                     @change="handleChange"
                     @onSelectAllChange="handleSelectAllChange"></dui-select>
       </div>
@@ -21,16 +23,18 @@ export default {
   name: 'home',
   data: () => ({
     items: [
-      { label: '北京', value: 'bj' },
-      { label: '上海', value: 'sh' },
-      { label: '广州', value: 'gz' },
-      { label: '深圳', value: 'sz' }
+      { content: '北京', code: 'bj' },
+      { content: '上海', code: 'sh' },
+      { content: '广州', code: 'gz' },
+      { content: '深圳', code: 'sz' }
     ],
     selected: []
   }),
   methods: {
     handleChange (v) {
+      console.log(v);
       this.selected = v;
+      console.log(this.selected);
     },
     handleSelectAllChange ({ checked, value }) {
       this.selected = value;

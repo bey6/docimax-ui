@@ -12,17 +12,17 @@
         @mouseover="handleMouseover"
         @mouseleave="handleMouseleave">
       <li v-for="item in items"
-          :key="item.value">
+          :key="item[code]">
         <label style="width: 100%">
           <input class="dui-select-li-label"
                  v-show="mode==='multiple'"
                  type="checkbox"
-                 :name="item.value"
-                 :id="item.value"
-                 :checked="value.findIndex(v=>v.value===item.value)!==-1"
+                 :name="item[code]"
+                 :id="item[code]"
+                 :checked="value.findIndex(v=>v[code]===item[code])!==-1"
                  @change="handleSelectChange($event, item)">
-          <span class="dui-select-label">{{item.label}}</span>
-          <span class="dui-select-value">{{item.value}}</span>
+          <span class="dui-select-label">{{item[label]}}</span>
+          <span class="dui-select-value">{{item[code]}}</span>
         </label>
       </li>
       <li style="border-bottom: 0"
@@ -62,6 +62,14 @@ export default {
     content: {
       type: String,
       default: 'label' // or value
+    },
+    label: {
+      type: String,
+      default: 'label'
+    },
+    code: {
+      type: String,
+      default: 'code'
     }
   },
   computed: {
@@ -120,7 +128,9 @@ export default {
       } else {
         // 多选
         // nothing to say
-        let idx = tmp.findIndex(t => t.value == v.value);
+        console.log(tmp);
+        let idx = tmp.findIndex(t => t[this.code] == v[this.code]);
+        console.log(idx);
         if (idx !== -1) {
           // 数组里有这个项
           if (!e.target.checked) {
@@ -129,6 +139,7 @@ export default {
         } else {
           // 数组里面没有本次选择的项
           if (e.target.checked) {
+            console.log(v);
             tmp.push(v); // push into
           }
         }
