@@ -15,6 +15,20 @@
                     @onSelectAllChange="handleSelectAllChange"></dui-select>
       </div>
     </label>
+    <dui-alert v-model="alert"
+               message="天街小雨润如酥" />
+    <dui-dialog v-model="dialog"
+                :modal="true"
+                :width="800"
+                :height="300">
+      <h1>hello world.</h1>
+      <p>你好世界</p>
+      <button @click="handleDialog">dialog</button>
+    </dui-dialog>
+    <div>
+      <button @click="handleSwtich">switch alert.</button>
+      <button @click="handleDialog">dialog</button>
+    </div>
   </div>
 </template>
 
@@ -22,6 +36,8 @@
 export default {
   name: 'home',
   data: () => ({
+    alert: false,
+    dialog: false,
     items: [
       { content: '北京', code: 'bj' },
       { content: '上海', code: 'sh' },
@@ -34,8 +50,15 @@ export default {
     handleChange (v) {
       this.selected = v;
     },
+    // eslint-disable-next-line no-unused-vars
     handleSelectAllChange ({ checked, value }) {
       this.selected = value;
+    },
+    handleSwtich () {
+      this.alert = !this.alert;
+    },
+    handleDialog () {
+      this.dialog = !this.dialog;
     }
   }
 };
