@@ -19,13 +19,17 @@
                message="天街小雨润如酥" />
     <dui-dialog v-model="dialog"
                 :modal="true"
-                :width="800"
-                :height="300">
+                :width="512"
+                :height="256">
       <h1>hello world.</h1>
       <p>你好世界</p>
       <button @click="handleDialog">dialog</button>
     </dui-dialog>
     <div>
+      <dui-button text="dialog"
+                  class="text-btn"
+                  :disabled="false"
+                  @click="handleClick" />
       <button @click="handleSwtich">switch alert.</button>
       <button @click="handleDialog">dialog</button>
     </div>
@@ -47,6 +51,9 @@ export default {
     selected: []
   }),
   methods: {
+    handleClick () {
+      console.log('click');
+    },
     handleChange (v) {
       this.selected = v;
     },
@@ -85,5 +92,10 @@ export default {
 select,
 input {
   font-size: 1em;
+}
+
+.text-btn {
+  width: 256px;
+  height: 50px;
 }
 </style>
