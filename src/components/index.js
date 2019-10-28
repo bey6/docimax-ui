@@ -3,11 +3,13 @@ import pkg from '../../package.json';
 import Alert from './alert';
 import Dialog from './dialog';
 import Select from './select';
+import Table from './table';
 
 const components = [
   Alert,
   Dialog,
-  Select
+  Select,
+  Table
 ];
 
 // eslint-disable-next-line no-unused-vars
