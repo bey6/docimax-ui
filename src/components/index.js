@@ -1,12 +1,14 @@
 import pkg from '../../package.json';
 
 import Alert from './alert';
+import Button from './button';
 import Dialog from './dialog';
 import Select from './select';
 import Table from './table';
 
 const components = [
   Alert,
+  Button,
   Dialog,
   Select,
   Table
