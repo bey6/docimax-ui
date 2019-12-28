@@ -43,8 +43,8 @@ export default {
     alert: false,
     dialog: false,
     items: [
-      { content: '北京', code: 'bj' },
-      { content: '上海', code: 'sh' },
+      { content: '北京密码是可能的看i次哦下', code: 'bjsdfsdfsdfsdfsdf' },
+      { content: '上海', code: 'shd2312d6546$%@#sad132as' },
       { content: '广州', code: 'gz' },
       { content: '深圳', code: 'sz' }
     ],

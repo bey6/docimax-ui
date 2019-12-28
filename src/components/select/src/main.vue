@@ -1,8 +1,7 @@
 <template>
-  <div class="dui-select">
-    <input class="dui-select-input"
+  <div class="dui---select">
+    <input class="dui---select---input"
            type="text"
-           :name="id"
            :id="id"
            :value="selectedValue"
            @input="handleInput"
@@ -12,17 +11,15 @@
         @mouseover="handleMouseover"
         @mouseleave="handleMouseleave">
       <li v-for="item in items"
-          :key="item[code]">
-        <label style="width: 100%">
-          <input class="dui-select-li-label"
+          :key="item.id||item[code]">
+        <label>
+          <input class="dui---select-li-label"
                  v-show="mode==='multiple'"
                  type="checkbox"
-                 :name="item[code]"
-                 :id="item[code]"
                  :checked="value.findIndex(v=>v[code]===item[code])!==-1"
                  @change="handleSelectChange($event, item)">
-          <span class="dui-select-label">{{item[label]}}</span>
-          <span class="dui-select-value">{{item[code]}}</span>
+          <span class="dui---select-label">{{item[label]}}</span>
+          <span class="dui---select-value">{{item[code]}}</span>
         </label>
       </li>
       <li style="border-bottom: 0"
@@ -32,7 +29,7 @@
                  name="all"
                  id="all"
                  @change="handleSelectAllChange">
-          <span class="dui-select-label-all">全选</span>
+          <span class="dui---select-label-all">全选</span>
         </label>
       </li>
     </ul>
@@ -158,23 +155,26 @@ export default {
 </script>
 
 <style>
-.dui-select {
+.dui---select {
   position: relative;
-  display: inline-block;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+  font-size: 1em;
+  font-weight: 500;
+  color: #333;
+  font-family: "微软雅黑", sans-serif;
   user-select: none;
 }
-.dui-select-input {
+
+.dui---select---input {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  border: 1px solid #ddd;
-  border-radius: 3px;
   padding: 5px;
 }
-.dui-select ul {
+
+.dui---select ul {
   position: absolute;
   box-sizing: border-box;
   z-index: 99;
@@ -184,44 +184,64 @@ export default {
   width: 100%;
   max-height: 256px;
   overflow-y: auto;
-  background-color: #fff;
-  border-radius: 0 0 3px 3px;
-  border: 1px solid #ddd;
-  box-shadow: 0 1px 3px #ddd;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px #ccc;
 }
-.dui-select ul li {
-  position: relative;
+
+.dui---select ul li label {
+  display: flex;
+  box-sizing: border-box;
   padding-left: 10px;
-  border-bottom: 1px dashed #ddd;
+  width: 100%;
+}
+
+.dui---select ul li label span {
+  flex: 1 2;
+}
+
+.dui---select ul li label input[type="checkbox"] {
+  flex-basis: 24px;
+}
+
+.dui---select ul li {
+  position: relative;
+  box-sizing: border-box;
   line-height: 30px;
   text-align: left;
 }
-.dui-select ul li:hover {
-  background-color: #2cc185;
+
+.dui---select ul li:nth-child(2n + 1) {
+  background-color: #f1f1f1;
+}
+
+.dui---select ul li:nth-child(2n) {
+  background-color: #fff;
+}
+
+.dui---select ul li:hover {
+  background-color: #0078d7;
   color: #fff;
 }
-.dui-select-li-label {
+
+.dui---select-li-label {
   display: inline-block;
   box-sizing: border-box;
 }
-.dui-select-label {
-  display: inline-block;
+
+.dui---select-label {
   padding-left: 15px;
-  box-sizing: border-box;
   width: calc(80% - 20px);
   text-align: left;
 }
-.dui-select-value {
-  display: inline-block;
+
+.dui---select-value {
   padding-right: 15px;
-  box-sizing: border-box;
   width: 20%;
   text-align: center;
 }
-.dui-select-label-all {
-  display: inline-block;
+
+.dui---select-label-all {
   padding-left: 15px;
-  box-sizing: border-box;
   width: calc(100% - 20px);
   text-align: left;
 }

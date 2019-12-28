@@ -12,6 +12,7 @@ npm i @docimax/ui
 
 ```js
 import dui from '@docimax/ui';
+import '@docimax/ui/lib/dui.css';
 
 Vue.use(dui);
 ```
@@ -53,7 +54,7 @@ export default {
 ></dui-select>
 ```
 
-**Attribute**
+#### Attribute
 | name | type | description|
 |-|-|-|
 |id|String|也许会用到吧|
@@ -63,7 +64,7 @@ export default {
 |content|String|`label` or `value` 显示值为 label 还是 value|
 |label|string|默认值为 `label`，指定使用数据集中的哪个字段作为文案|
 |code|string|默认值为 `code`，指定使用数据集中的哪个字段作为编码|
-**Event**
+#### Event
 | name | params | description|
 |-|-|-|
 |change|`[]`|当你选中/取消/修改输入框时会触发该事件|
