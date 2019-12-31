@@ -48,7 +48,7 @@ export default {
       { content: '广州', code: 'gz' },
       { content: '深圳', code: 'sz' }
     ],
-    selected: []
+    selected: ''
   }),
   methods: {
     handleClick () {

@@ -3,20 +3,20 @@
     <input class="dui---select---input"
            type="text"
            :id="id"
-           :value="selectedValue"
+           :value="value"
            @input="handleInput"
            @focus="handleFocus"
            @blur="handleBlur">
     <ul v-show="focusd"
         @mouseover="handleMouseover"
         @mouseleave="handleMouseleave">
-      <li v-for="item in items"
+      <li v-for="item in filtedList"
           :key="item.id||item[code]">
         <label>
           <input class="dui---select-li-label"
                  v-show="mode==='multiple'"
                  type="checkbox"
-                 :checked="value.findIndex(v=>v[code]===item[code])!==-1"
+                 :checked="value.includes(item[label])"
                  @change="handleSelectChange($event, item)">
           <span class="dui---select-label">{{item[label]}}</span>
           <span class="dui---select-value">{{item[code]}}</span>
@@ -44,34 +44,53 @@ export default {
       type: String,
       default: 'duiSelect'
     },
-    value: {
-      type: Array,
-      default: () => []
-    },
-    items: {
-      type: Array,
-      default: () => []
-    },
+    // 模式: single>单选, multiple>多选
     mode: {
       type: String,
       default: 'single' // or multiple
     },
+    // 选择的值
+    value: {
+      type: String,
+      default: ''
+    },
+    // 数据集
+    items: {
+      type: Array,
+      default: () => []
+    },
+    // 显示的文本对应数据集的哪个字段, 默认为 label
     content: {
       type: String,
       default: 'label' // or value
     },
+    // 下拉框显示的文本
     label: {
       type: String,
       default: 'label'
     },
+    // 下拉框显示的文本对应值
     code: {
       type: String,
       default: 'code'
     }
   },
   computed: {
-    selectedValue () {
-      return this.value.map(v => v[this.content]).join(',');
+    // 关键字
+    queryString () {
+      let idx = this.value.lastIndexOf(' ');
+      if (idx === -1) {
+        return '';
+      }
+      return this.value.slice(idx + 1);
+    },
+    // 过滤结果
+    filtedList () {
+      if (this.queryString === '') return this.items.slice(0, 30);
+      return this.items.filter(i => i[this.label] === this.queryString ||
+        i[this.code] === this.queryString ||
+        i[this.label].includes(this.queryString) ||
+        i[this.code].includes(this.queryString));
     }
   },
   data: () => ({
@@ -79,29 +98,40 @@ export default {
     mouseover: false
   }),
   methods: {
+    // #region DOMEvent
+    // 输入事件
     handleInput (e) {
-      let selected = [];
-      if (e.target.value !== '') {
-        let contentArr = e.target.value.split(',');
-
-        contentArr.forEach(v => {
-          let idx = this.items.findIndex(i => i[this.content] === v);
-          if (idx !== -1) {
-            selected.push(JSON.parse(JSON.stringify(this.items[idx])));
-          }
-        });
+      if (e.inputType === 'deleteContentBackward') {
+        this.$emit('input', e.target.value);
+        return;
       }
-      this.$emit('change', selected);
+      let newV = '';
+      if (this.value === '') {// 直接搜索
+        newV = ` ${e.target.value}`;
+      } else { // 有内容的搜索
+        if (e.data === ' ' || this.value.includes(' ')) {
+          newV = `${e.target.value}`;
+        } else {
+          newV = `${this.value} ${e.data}`;
+        }
+      }
+      this.$emit('input', newV);
     },
+    // 光标命中
     handleFocus () {
+      console.log(document.activeElement);
       this.focusd = true;
     },
+    // 光标离开
     handleBlur () {
+      console.log(document.activeElement);
       if (!this.mouseover) this.focusd = false;
     },
+    // 鼠标悬浮
     handleMouseover () {
       if (!this.mouseover) this.mouseover = true;
     },
+    // 鼠标离开
     handleMouseleave () {
       if (this.mouseover) {
         if (this.mouseover) {
@@ -113,42 +143,85 @@ export default {
           }
         }
       }
+      console.log('leave');
     },
+    // #endregion
+    // 点选
     handleSelectChange (e, v) {
-      let tmp = this.value;
-
       if (this.mode === 'single') {
-        // 单选
-        // 单选模式下，数组值存在一个选中值
-        tmp = [v];
-        this.focusd = false;
-      } else {
-        // 多选
-        // nothing to say
-        let idx = tmp.findIndex(t => t[this.code] == v[this.code]);
-        if (idx !== -1) {
-          // 数组里有这个项
-          if (!e.target.checked) {
-            tmp.splice(idx, 1); // 移除它
+        let newV = '';
+        if (e.target.checked) {
+          this.$emit('input', v[this.label]);
+        }
+        this.$emit('input', newV);
+      } else { // 多选
+        let tmp = this.value;
+        if (e.target.checked) { // 选择
+          let newV = '';
+          if (!this.value.includes(v[this.label])) { // 没选过
+            let idx = this.value.lastIndexOf(' ');
+            let selected = this.value.slice(0, idx);
+            let keywords = this.value.slice(idx);
+
+            if (tmp === '' || tmp.slice(0, 1) === ' ') { // 第一个
+              console.log('第一个选择');
+              if (idx !== -1) { // 有条件点选
+                newV = `${v[this.label]}${keywords}`;
+              } else { // 无条件点选
+                newV = v[this.label];
+              }
+            } else { // 已经有选过的项了
+              console.log('非空选择');
+              if (idx !== -1) { // 有条件
+                newV = `${selected},${v[this.label]}${keywords}`;
+              } else {
+                newV = `${tmp},${v[this.label]}`;
+              }
+            }
+            this.$emit('input', newV);
           }
-        } else {
-          // 数组里面没有本次选择的项
-          if (e.target.checked) {
-            tmp.push(v); // push into
+
+        } else { // 取消选择
+          if (this.value.includes(v[this.label])) { // 有
+            let arr = tmp.split(',');
+            let idx = arr.findIndex(a => a === v[this.label]);
+            if (idx !== -1) {
+              arr.splice(idx, 1);
+            }
+            this.$emit('input', arr.join(','));
           }
         }
       }
-      this.$emit('change', tmp);
     },
+    // 全选
     handleSelectAllChange (e) {
-      let v = [];
-
+      let newV = '';
       if (e.target.checked) {
-        v = JSON.parse(JSON.stringify(this.items));
-        // v = this.items.map(v => v.value).join(',');
+        // arr = JSON.parse(JSON.stringify(this.items));
+        newV = this.items.map(v => v[this.label]).join(',');
       }
 
-      this.$emit('onSelectAllChange', { checked: e.target.checked, value: v });
+      this.$emit('input', newV);
+      this.$emit('onSelectAllChange', { checked: e.target.checked, value: newV });
+    },
+    // 过滤结果
+    getFiltedList () {
+      this.filtedList = this.items.filter(i => i[this.label] === this.queryString ||
+        i[this.value] === this.queryString ||
+        i[this.piny] === this.queryString);
+    },
+    // 检查查询字符串
+    checkQueryString (arr) {
+      // 空
+      if (arr.length === 0) return [];
+
+      let arrCopy = JSON.parse(JSON.stringify(arr));
+      console.log(arrCopy[arrCopy.length - 1][this.content]);
+      if (arrCopy[arrCopy.length - 1][this.content]) {
+        console.log('if ???');
+        arrCopy.push('');
+      }
+      return arrCopy;
     }
   }
 };
@@ -197,6 +270,9 @@ export default {
 
 .dui---select ul li label span {
   flex: 1 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dui---select ul li label input[type="checkbox"] {
