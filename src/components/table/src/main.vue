@@ -133,12 +133,12 @@ export default {
   border-top: 5px solid transparent;
   top: 12px;
 }
-ul {
+.dui-table {
   margin: 0;
   padding: 0;
   width: 200px;
 }
-li {
+.dui-table > li {
   list-style: none;
   width: 100%;
 }

@@ -218,7 +218,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .dui---select {
   position: relative;
   box-sizing: border-box;
@@ -229,87 +229,87 @@ export default {
   color: #333;
   font-family: "微软雅黑", sans-serif;
   user-select: none;
-}
 
-.dui---select---input {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  padding: 5px;
-}
+  .dui---select---input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+  }
 
-.dui---select ul {
-  position: absolute;
-  box-sizing: border-box;
-  z-index: 99;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  width: 100%;
-  max-height: 256px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  box-shadow: 0 1px 3px #ccc;
-}
+  ul {
+    position: absolute;
+    box-sizing: border-box;
+    z-index: 99;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    max-height: 256px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 3px #ccc;
 
-.dui---select ul li label {
-  display: flex;
-  box-sizing: border-box;
-  padding-left: 10px;
-  width: 100%;
-}
+    li {
+      position: relative;
+      box-sizing: border-box;
+      line-height: 30px;
+      text-align: left;
 
-.dui---select ul li label span {
-  flex: 1 2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+      label {
+        display: flex;
+        box-sizing: border-box;
+        padding-left: 10px;
+        width: 100%;
 
-.dui---select ul li label input[type="checkbox"] {
-  flex-basis: 24px;
-}
+        span {
+          flex: 1 2;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
 
-.dui---select ul li {
-  position: relative;
-  box-sizing: border-box;
-  line-height: 30px;
-  text-align: left;
-}
+        input[type="checkbox"] {
+          flex-basis: 24px;
+        }
 
-.dui---select ul li:nth-child(2n + 1) {
-  background-color: #f1f1f1;
-}
+        .dui---select-li-label {
+          display: inline-block;
+          box-sizing: border-box;
+        }
 
-.dui---select ul li:nth-child(2n) {
-  background-color: #fff;
-}
+        .dui---select-label {
+          padding-left: 15px;
+          width: calc(80% - 20px);
+          text-align: left;
+        }
 
-.dui---select ul li:hover {
-  background-color: #0078d7;
-  color: #fff;
-}
+        .dui---select-value {
+          padding-right: 15px;
+          width: 20%;
+          text-align: center;
+        }
 
-.dui---select-li-label {
-  display: inline-block;
-  box-sizing: border-box;
-}
+        .dui---select-label-all {
+          padding-left: 15px;
+          width: calc(100% - 20px);
+          text-align: left;
+        }
+      }
 
-.dui---select-label {
-  padding-left: 15px;
-  width: calc(80% - 20px);
-  text-align: left;
-}
+      &:nth-child(2n + 1) {
+        background-color: #f1f1f1;
+      }
 
-.dui---select-value {
-  padding-right: 15px;
-  width: 20%;
-  text-align: center;
-}
+      &:nth-child(2n) {
+        background-color: #fff;
+      }
 
-.dui---select-label-all {
-  padding-left: 15px;
-  width: calc(100% - 20px);
-  text-align: left;
+      &:hover {
+        background-color: #0078d7;
+        color: #fff;
+      }
+    }
+  }
 }
 </style>
