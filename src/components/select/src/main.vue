@@ -119,12 +119,10 @@ export default {
     },
     // 光标命中
     handleFocus () {
-      console.log(document.activeElement);
       this.focusd = true;
     },
     // 光标离开
     handleBlur () {
-      console.log(document.activeElement);
       if (!this.mouseover) this.focusd = false;
     },
     // 鼠标悬浮
@@ -143,17 +141,13 @@ export default {
           }
         }
       }
-      console.log('leave');
     },
     // #endregion
     // 点选
     handleSelectChange (e, v) {
       if (this.mode === 'single') {
-        let newV = '';
-        if (e.target.checked) {
-          this.$emit('input', v[this.label]);
-        }
-        this.$emit('input', newV);
+        this.$emit('input', v[this.label]);
+        this.focusd = false;
       } else { // 多选
         let tmp = this.value;
         if (e.target.checked) { // 选择
@@ -164,14 +158,12 @@ export default {
             let keywords = this.value.slice(idx);
 
             if (tmp === '' || tmp.slice(0, 1) === ' ') { // 第一个
-              console.log('第一个选择');
               if (idx !== -1) { // 有条件点选
                 newV = `${v[this.label]}${keywords}`;
               } else { // 无条件点选
                 newV = v[this.label];
               }
             } else { // 已经有选过的项了
-              console.log('非空选择');
               if (idx !== -1) { // 有条件
                 newV = `${selected},${v[this.label]}${keywords}`;
               } else {
@@ -198,9 +190,8 @@ export default {
       let newV = '';
       if (e.target.checked) {
         // arr = JSON.parse(JSON.stringify(this.items));
-        newV = this.items.map(v => v[this.label]).join(',');
+        newV = this.filtedList.map(v => v[this.label]).join(',');
       }
-
       this.$emit('input', newV);
       this.$emit('onSelectAllChange', { checked: e.target.checked, value: newV });
     },

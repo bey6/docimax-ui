@@ -8,12 +8,23 @@
                     style="height: 40px;font-size:16px"
                     :items="items"
                     v-model="selected"
-                    mode="multiple"
+                    :mode="mode"
                     label="content"
                     content="content"
                     @change="handleChange"
                     @onSelectAllChange="handleSelectAllChange"></dui-select>
       </div>
+      <div>
+        <label><input type="radio"
+                 name="mode"
+                 value="single"
+                 v-model="mode">single</label>
+        <label><input type="radio"
+                 name="mode"
+                 value="multiple"
+                 v-model="mode">multiple</label>
+      </div>
+
     </label>
     <dui-alert v-model="alert"
                message="天街小雨润如酥" />
@@ -41,6 +52,7 @@ export default {
   name: 'home',
   data: () => ({
     alert: false,
+    mode: 'single',
     dialog: false,
     items: [
       { content: '北京密码是可能的看i次哦下', code: 'bjsdfsdfsdfsdfsdf' },
@@ -48,7 +60,7 @@ export default {
       { content: '广州', code: 'gz' },
       { content: '深圳', code: 'sz' }
     ],
-    selected: ''
+    selected: '广州,深圳'
   }),
   methods: {
     handleClick () {
